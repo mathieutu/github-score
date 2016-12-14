@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../before/github.php';
+require_once __DIR__ . '/../after/GithubScore.php';
 
 class GithubTest extends PHPUnit_Framework_TestCase
 {
@@ -9,7 +10,8 @@ class GithubTest extends PHPUnit_Framework_TestCase
         $score = 8;
         $username = 'mathieutu';
 
-        $this->assertEquals($score, githubScore($username, true));
+        $this->assertEquals($score, githubScore($username, true)); // Before
+        $this->assertEquals($score, GithubScore::forUser($username, true)); // After
     }
 
     public function testWinner()
