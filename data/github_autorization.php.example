@@ -1,0 +1,6 @@
+<?php
+
+// you can generate a new token at https://github.com/settings/tokens/new
+// {auth} = base64_encode("github_username:github_token");
+
+const GITHUB_TOKEN = "{auth}";

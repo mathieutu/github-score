@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/../data/github_autorization.php';
+
 function githubWinner(array $usernames, $test = false)
 {
     $scores = [];
@@ -41,13 +43,23 @@ function githubScore($username, $test = false)
 {
     if ($test) {
         $data = file_get_contents(__DIR__ . '/../data/' . $username . '.json');
-    } else {
-        $url = "https://api.github.com/users/{$username}/events";
-        $context = stream_context_create(['http' => ['header' => "User-Agent: Kata Neoxia"]]);
-        $data = file_get_contents($url, null, $context);
-    }
 
-    $events = json_decode($data, true);
+       $events = json_decode($data, true);
+    } else {
+        $context = stream_context_create([
+            'http' => ['header' =>
+                           "User-Agent: Github Score\r\n" .
+                           'Authorization: Basic ' . GITHUB_TOKEN,
+            ]]);
+
+        $events = [];
+        $page = 1;
+        do {
+            $url = "https://api.github.com/users/{$username}/events?page={$page}";
+            $events = array_merge($events, json_decode(file_get_contents($url, null, $context), true));
+            $page++;
+        } while (mb_strpos($http_response_header[18], 'next') !== false);
+    }
 
     $eventTypes = [];
     foreach ($events as $event) {

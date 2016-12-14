@@ -1,6 +1,7 @@
 <?php
 
 require_once __DIR__ . '/../lib/collection.php';
+require_once __DIR__ . '/../data/github_autorization.php';
 
 class GithubScore
 {
@@ -26,14 +27,50 @@ class GithubScore
     private function events()
     {
         if ($this->test) {
-            $data = file_get_contents(__DIR__ . '/../data/' . $this->username . '.json');
-        } else {
-            $url = "https://api.github.com/users/{$this->username}/events";
-            $context = stream_context_create(['http' => ['header' => "User-Agent: Kata Neoxia"]]);
-            $data = file_get_contents($url, null, $context);
+            return $this->fetchEventsFromData();
         }
 
-        return collect(json_decode($data, true));
+        return $this->fetchEventsFromGithub();
+    }
+
+    private function fetchEventsFromData()
+    {
+        $events = file_get_contents(__DIR__ . '/../data/' . $this->username . '.json');
+
+        return collect(json_decode($events, true));
+    }
+
+    private function fetchEventsFromGithub()
+    {
+        $events = [];
+        $page = 1;
+        do {
+            list($newEvents, $links) = $this->fetchEventsfromOneGithubPage($page);
+            $events = array_merge($events, $newEvents);
+            $page++;
+        } while ($this->isThereANextPage($links));
+
+        return collect($events);
+    }
+
+    private function fetchEventsfromOneGithubPage($page)
+    {
+        $context = stream_context_create([
+            'http' => ['header' =>
+                           "User-Agent: Github Score\r\n" .
+                           "Authorization: Basic " . GITHUB_TOKEN,
+            ]]);
+
+        $url = "https://api.github.com/users/{$this->username}/events?page={$page}";
+        $newEvents = json_decode(file_get_contents($url, null, $context));
+        $links = $http_response_header[18];
+
+        return [$newEvents, $links];
+    }
+
+    private function isThereANextPage($links)
+    {
+        return mb_strpos($links, 'next') !== false;
     }
 
     private function lookupScore()
