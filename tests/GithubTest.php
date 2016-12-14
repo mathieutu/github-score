@@ -2,6 +2,7 @@
 
 require_once __DIR__ . '/../before/github.php';
 require_once __DIR__ . '/../after/GithubScore.php';
+require_once __DIR__ . '/../after/GithubWinner.php';
 
 class GithubTest extends PHPUnit_Framework_TestCase
 {
@@ -23,6 +24,7 @@ class GithubTest extends PHPUnit_Framework_TestCase
         ];
         $usernames = ['foo', 'bar', 'mathieutu'];
 
-        $this->assertEquals(json_encode($ranking), githubWinner($usernames, true));
+        $this->assertEquals(json_encode($ranking), githubWinner($usernames, true)); // Before
+        $this->assertEquals(json_encode($ranking), GithubWinner::find($usernames, true)); // After
     }
 }
