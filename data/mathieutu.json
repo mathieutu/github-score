@@ -1,0 +1,54 @@
+[
+    {
+        "id": "5019156928",
+        "type": "CreateEvent",
+        "actor": {
+            "id": 11351322,
+            "login": "mathieutu",
+            "display_login": "mathieutu",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/mathieutu",
+            "avatar_url": "https://avatars.githubusercontent.com/u/11351322?"
+        },
+        "repo": {
+            "id": 76450759,
+            "name": "mathieutu/github-score",
+            "url": "https://api.github.com/repos/mathieutu/github-score"
+        },
+        "payload": {
+            "ref": "master",
+            "ref_type": "branch",
+            "master_branch": "master",
+            "description": "A tool for a demo about refactoring code, which determines a score for an user, and ranks users.",
+            "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2016-12-14T10:47:04Z"
+    },
+    {
+        "id": "5019156908",
+        "type": "CreateEvent",
+        "actor": {
+            "id": 11351322,
+            "login": "mathieutu",
+            "display_login": "mathieutu",
+            "gravatar_id": "",
+            "url": "https://api.github.com/users/mathieutu",
+            "avatar_url": "https://avatars.githubusercontent.com/u/11351322?"
+        },
+        "repo": {
+            "id": 76450759,
+            "name": "mathieutu/github-score",
+            "url": "https://api.github.com/repos/mathieutu/github-score"
+        },
+        "payload": {
+            "ref": null,
+            "ref_type": "repository",
+            "master_branch": "master",
+            "description": "A tool for a demo about refactoring code, which determines a score for an user, and ranks users.",
+            "pusher_type": "user"
+        },
+        "public": true,
+        "created_at": "2016-12-14T10:47:04Z"
+    }
+]
