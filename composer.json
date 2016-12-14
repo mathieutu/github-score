@@ -1,0 +1,14 @@
+{
+    "name": "mathieutu/github-score",
+    "minimum-stability": "stable",
+    "license": "GPL-3.0",
+    "authors": [
+        {
+            "name": "Mathieu TUDISCO",
+            "email": "mathieu.tu@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^5.7"
+    }
+}
