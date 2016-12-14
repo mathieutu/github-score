@@ -1,0 +1,14 @@
+[
+    {
+        "type": "PushEvent"
+    },
+    {
+        "type": "PullRequestEvent"
+    },
+    {
+        "type": "CreateEvent"
+    },
+    {
+        "type": "PushEvent"
+    }
+]

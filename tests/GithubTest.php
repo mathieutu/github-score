@@ -11,4 +11,16 @@ class GithubTest extends PHPUnit_Framework_TestCase
 
         $this->assertEquals($score, githubScore($username, true));
     }
+
+    public function testWinner()
+    {
+        $ranking = [
+            ['username' => 'foo', 'score' => 15, 'rank' => 1,],
+            ['username' => 'bar', 'score' => 15, 'rank' => 1,],
+            ['username' => 'mathieutu', 'score' => 8, 'rank' => 3,],
+        ];
+        $usernames = ['foo', 'bar', 'mathieutu'];
+
+        $this->assertEquals(json_encode($ranking), githubWinner($usernames, true));
+    }
 }

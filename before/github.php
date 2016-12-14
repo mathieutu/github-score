@@ -1,5 +1,42 @@
 <?php
 
+function githubWinner(array $usernames, $test = false)
+{
+    $scores = [];
+    foreach ($usernames as $username) {
+        $scores[] = (object) ['username' => $username, 'score' => githubScore($username, $test)];
+    }
+
+    $ranks = [];
+
+    foreach ($scores as $key => $score) {
+        $ranks[$key] = $score->score;
+    }
+
+    arsort($ranks);
+
+    $rank = 1;
+    foreach ($ranks as $key => $score) {
+        $ranks[$key] = $scores[$key];
+        $ranks[$key]->rank = $rank;
+        $rank++;
+    }
+
+    $ranks = array_values($ranks);
+
+    foreach ($ranks as $key => $score) {
+        if (isset($ranks[$key - 1])) {
+            $prev_score = $ranks[$key - 1];
+            if ($score->score === $prev_score->score) {
+                $score->rank = $prev_score->rank;
+            }
+        }
+    }
+
+    return json_encode($ranks, true);
+
+}
+
 function githubScore($username, $test = false)
 {
     if ($test) {
